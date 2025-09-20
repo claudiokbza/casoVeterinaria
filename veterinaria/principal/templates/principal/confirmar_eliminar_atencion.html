@@ -1,0 +1,17 @@
+{% extends 'principal/base.html' %}
+
+{% block title %}Confirmar Eliminación{% endblock %}
+
+{% block content %}
+    <div class="alert alert-danger" role="alert">
+        <h2>¿Estás seguro de que quieres eliminar esta atención?</h2>
+        <p><strong>Fecha:</strong> {{ atencion.fecha_atencion }}</p>
+        <p><strong>Diagnóstico:</strong> {{ atencion.diagnostico }}</p>
+        <p>Esta acción es irreversible.</p>
+        <form method="post" class="d-inline">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+        </form>
+        <a href="{% url 'detalle_mascota' atencion.ficha_mascota.pk %}" class="btn btn-secondary">Cancelar</a>
+    </div>
+{% endblock %}

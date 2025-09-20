@@ -1,0 +1,38 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Detalles de {{ mascota.nombre }}{% endblock %}
+
+{% block content %}
+    <h1 class="mb-4">Detalles de {{ mascota.nombre }}</h1>
+    <div class="card p-4">
+        <h2 class="card-title">Información de la Mascota</h2>
+        <p><strong>Dueño:</strong> {{ mascota.dueño.nombres }} {{ mascota.dueño.apellidos }}</p>
+        <p><strong>Raza:</strong> {{ mascota.raza }}</p>
+        <p><strong>Fecha de Nacimiento:</strong> {{ mascota.fecha_nacimiento }}</p>
+    </div>
+    <div class="mt-4">
+        <h2>Historial de Atenciones</h2>
+        <a href="{% url 'crear_atencion' mascota.pk %}" class="btn btn-success mb-3">Agregar Atención</a>
+        {% if atenciones %}
+        <ul class="list-group">
+            {% for atencion in atenciones %}
+            <li class="list-group-item">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">Atención del {{ atencion.fecha_atencion }}</h5>
+                    <small>Veterinario: {{ atencion.veterinario.nombre }} {{ atencion.veterinario.apellido }}</small>
+                </div>
+                <p class="mb-1"><strong>Diagnóstico:</strong> {{ atencion.diagnostico }}</p>
+                <p class="mb-1"><strong>Tratamiento:</strong> {{ atencion.tratamiento }}</p>
+                <small><strong>Observaciones:</strong> {{ atencion.observaciones|default:"Sin observaciones" }}</small>
+                <div class="mt-2">
+                    <a href="{% url 'modificar_atencion' atencion.pk %}" class="btn btn-sm btn-warning">Modificar</a>
+                    <a href="{% url 'eliminar_atencion' atencion.pk %}" class="btn btn-sm btn-danger">Eliminar</a>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <div class="alert alert-info mt-3">No hay atenciones registradas para esta mascota.</div>
+        {% endif %}
+    </div>
+{% endblock %}
