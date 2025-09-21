@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Profesional, Asistente, Veterinario
+from .models import Profesional, Asistente, Veterinario, FichaMascota, Dueno
 
 @admin.register(Profesional)
 class ProfesionalAdmin(admin.ModelAdmin):
@@ -13,3 +13,13 @@ class AsistenteAdmin(admin.ModelAdmin):
 @admin.register(Veterinario)
 class VeterinarioAdmin(admin.ModelAdmin):
     list_display = ('idveterinario', 'tipo_acceso')
+
+@admin.register(FichaMascota)
+class FichaMascotaAdmin(admin.ModelAdmin):
+    list_display = ('nombre', 'sexo', 'dueño', 'asistente')
+    search_fields = ('nombre', 'dueño__nombres')
+
+@admin.register(Dueno)
+class DuenoAdmin(admin.ModelAdmin):
+    list_display = ('nombres', 'apellidos', 'run', 'email')
+    search_fields = ('nombres', 'apellidos', 'run', 'email')

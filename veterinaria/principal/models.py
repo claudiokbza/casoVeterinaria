@@ -23,9 +23,15 @@ class Asistente(models.Model):
     idasistente = models.OneToOneField(Profesional, on_delete=models.CASCADE, primary_key=True)
     tipo_acceso = models.CharField(max_length=45, choices=ROLES, default='asistente')
 
+    def __str__(self):
+        return self.idasistente.nombre
+
 class Veterinario(models.Model):
     idveterinario = models.OneToOneField(Profesional, on_delete=models.CASCADE, primary_key=True)
     tipo_acceso = models.CharField(max_length=45, choices=ROLES, default='asistente')
+
+    def __str__(self):
+        return self.idveterinario.nombre
 
 class Dueno(models.Model):
     iddueño = models.IntegerField(primary_key=True)
@@ -38,12 +44,17 @@ class Dueno(models.Model):
 
     def __str__(self):
         return f'{self.nombres} {self.apellidos}'
+    
+SEXO_CHOICES = [
+    ('M', 'Macho'),
+    ('H', 'Hembra'),
+]    
 
 class FichaMascota(models.Model):
     idficha_mascota = models.IntegerField(primary_key=True)
     nombre = models.CharField(max_length=45)
     num_chip = models.CharField(max_length=45, blank=True, null=True)
-    sexo = models.CharField(max_length=1)
+    sexo = models.CharField(max_length=1, choices=SEXO_CHOICES)
     fecha_nacimiento = models.DateField()
     raza = models.CharField(max_length=45)
     dueño = models.ForeignKey(Dueno, on_delete=models.CASCADE)

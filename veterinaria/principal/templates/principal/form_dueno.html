@@ -7,7 +7,7 @@
     <form method="post" class="card p-4">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit" class="btn btn-primary mt-3">Guardar Ficha</button>
+        <button type="submit" class="btn btn-primary mt-3">Siguiente</button>
         <a href="{% url 'lista_mascotas' %}" class="btn btn-secondary mt-2">Cancelar</a>
     </form>
 {% endblock %}
