@@ -1,0 +1,24 @@
+{% extends 'principal/base.html' %}
+
+{% block title %}Buscar Dueño{% endblock %}
+
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h1 class="mb-4 text-center">Iniciar Creación de Ficha</h1>
+            <div class="card p-4">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="run" class="form-label">**1. Ingrese el RUN del Dueño**</label>
+                        <input type="text" name="run" id="run" class="form-control" placeholder="Ej: 12345678-9" required>
+                        <div class="form-text">Buscaremos si el dueño ya está registrado en el sistema.</div>
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary">Buscar y Continuar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
