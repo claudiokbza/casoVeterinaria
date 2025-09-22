@@ -38,10 +38,32 @@ def crear_dueno(request):
                 return render(request, 'principal/form_dueno.html', context)
     
     else:
-        # Petición GET, muestra el formulario vacío
         form = DuenoForm()
         context = {'form': form, 'title': 'Crear Dueño'}
         return render(request, 'principal/form_dueno.html', context)
+
+def buscar_dueno(request):
+    if request.method == 'POST':
+        run_ingresado = request.POST.get('run', '').strip()
+
+        # Validamos que el RUN no esté vacío
+        if not run_ingresado:
+            messages.error(request, 'Por favor, ingrese un RUN para buscar.')
+            return redirect('buscar_dueno')
+
+        # Buscamos al dueño por su RUN
+        dueno = Dueno.objects.filter(run=run_ingresado).first()
+
+        if dueno:
+            # Si el dueño existe, lo redirigimos a crear la ficha de la mascota
+            messages.success(request, f'Dueño encontrado. Ahora puede registrar a la mascota.')
+            return redirect('crear_ficha_mascota', dueno_pk=dueno.pk)
+        else:
+            # Si el dueño NO existe, lo redirigimos al formulario de creación
+            messages.info(request, f'Dueño con RUN {run_ingresado} no encontrado. Por favor, registre sus datos.')
+            return redirect('crear_dueno')
+            
+    return render(request, 'principal/buscar_dueno.html')
 
 def crear_ficha_mascota(request, dueno_pk):
     dueno = get_object_or_404(Dueno, pk=dueno_pk)

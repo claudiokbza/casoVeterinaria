@@ -6,9 +6,20 @@
     <h1 class="mb-4">Detalles de {{ mascota.nombre }}</h1>
     <div class="card p-4">
         <h2 class="card-title">Información de la Mascota</h2>
-        <p><strong>Dueño:</strong> {{ mascota.dueño.nombres }} {{ mascota.dueño.apellidos }}</p>
-        <p><strong>Raza:</strong> {{ mascota.raza }}</p>
-        <p><strong>Fecha de Nacimiento:</strong> {{ mascota.fecha_nacimiento }}</p>
+        <div class="row">
+            <div class="col-md-6">
+                <p><strong>Dueño:</strong> {{ mascota.dueño.nombres }} {{ mascota.dueño.apellidos }}</p>
+                <p><strong>Raza:</strong> {{ mascota.raza }}</p>
+                <p><strong>Fecha de Nacimiento:</strong> {{ mascota.fecha_nacimiento|date:"d \d\e F \d\e Y" }}</p>
+                <p><strong>Sexo:</strong> {{ mascota.get_sexo_display }}</p>
+            </div>
+            <div class="col-md-6">
+                <p><strong>N° Chip:</strong> {{ mascota.num_chip|default:"No registrado" }}</p>
+                {% if mascota.asistente %}
+                    <p><strong>Ficha creada por:</strong> {{ mascota.asistente.idasistente }}</p>
+                {% endif %}
+            </div>
+        </div>
     </div>
     <div class="mt-4">
         <h2>Historial de Atenciones</h2>
