@@ -6,6 +6,8 @@ from django.db import IntegrityError
 from django.core.exceptions import ObjectDoesNotExist
 from .models import Perfil 
 from .models import FichaMascota, Atencion, Asistente, Veterinario, Dueno
+from datetime import date
+
 
 
 #FICHAS MASCOTAS
@@ -71,7 +73,9 @@ def lista_mascotas(request):
 
 def detalle_mascota(request, pk):
     mascota = get_object_or_404(FichaMascota, pk=pk)
-    return render(request, 'principal/detalle_mascota.html', {'mascota': mascota})
+    atenciones = Atencion.objects.filter(ficha_mascota=mascota).order_by('-fecha_atencion')
+    return render(request, 'principal/detalle_mascota.html', {'mascota': mascota, 'atenciones': atenciones})
+
 
 
 def modificar_ficha_mascota(request, pk):
@@ -95,26 +99,29 @@ def eliminar_ficha_mascota(request, pk):
 #ATENCIONES
 
 def crear_atencion(request, mascota_pk):
-    mascota = FichaMascota.objects.get(pk=mascota_pk)
+    mascota = get_object_or_404(FichaMascota, pk=mascota_pk)
+
     if request.method == 'POST':
         form = AtencionForm(request.POST)
         if form.is_valid():
             nueva_atencion = form.save(commit=False)
-            veterinario = Veterinario.objects.first() # Obtiene el primer veterinario
+            nueva_atencion.ficha_mascota = mascota              # <- asigna la ficha
+            nueva_atencion.fecha_atencion = date.today()        # <- si tu modelo NO tiene default
+            veterinario = Veterinario.objects.first()           # <- provisional
             if veterinario:
                 nueva_atencion.veterinario = veterinario
-                nueva_atencion.save()
-                return redirect('detalle_mascota', pk=mascota.pk)
-            else:
-                return redirect('detalle_mascota', pk=mascota.pk)
+            nueva_atencion.save()
+            return redirect('detalle_mascota', pk=mascota.pk)
     else:
-        form = AtencionForm(initial={'mascota': mascota})
-    return render(request, 'principal/form_atencion.html', {'form': form, 'title': 'Crear Atención'})
+        form = AtencionForm()                                   # <- sin initial inválido
 
-def detalle_mascota(request, pk):
-    mascota = get_object_or_404(FichaMascota, pk=pk)
-    atenciones = Atencion.objects.filter(ficha_mascota=mascota).order_by('-fecha_atencion')
-    return render(request, 'principal/detalle_mascota.html', {'mascota': mascota, 'atenciones': atenciones})
+    return render(
+        request,
+        'principal/form_atencion.html',
+        {'form': form, 'title': 'Crear Atención', 'mascota': mascota}  # <- pasa mascota
+    )
+
+
 
 def modificar_atencion(request, pk):
     atencion = get_object_or_404(Atencion, pk=pk)

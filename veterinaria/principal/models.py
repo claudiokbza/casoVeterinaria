@@ -34,7 +34,7 @@ class Veterinario(models.Model):
         return self.idveterinario.nombre
 
 class Dueno(models.Model):
-    iddueño = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True, db_column='iddueño')
     run = models.CharField(max_length=45, unique=True)
     nombres = models.CharField(max_length=45)
     apellidos = models.CharField(max_length=45)
@@ -51,7 +51,7 @@ SEXO_CHOICES = [
 ]    
 
 class FichaMascota(models.Model):
-    idficha_mascota = models.IntegerField(primary_key=True)
+    idficha_mascota = models.AutoField(primary_key=True, db_column='idficha_mascota')
     nombre = models.CharField(max_length=45)
     num_chip = models.CharField(max_length=45, blank=True, null=True)
     sexo = models.CharField(max_length=1, choices=SEXO_CHOICES)
@@ -64,7 +64,7 @@ class FichaMascota(models.Model):
         return self.nombre
 
 class Atencion(models.Model):
-    idatencion = models.IntegerField(primary_key=True)
+    idatencion = models.AutoField(primary_key=True, db_column='idatencion')
     fecha_atencion = models.DateField()
     diagnostico = models.CharField(max_length=45)
     tratamiento = models.CharField(max_length=45)

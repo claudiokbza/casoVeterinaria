@@ -1,0 +1,21 @@
+{% extends 'principal/base.html' %}
+
+{% block title %}Eliminar Ficha{% endblock %}
+
+{% block content %}
+  <h1 class="h4 mb-3">¿Eliminar la ficha de <strong>{{ mascota.nombre }}</strong>?</h1>
+
+  <div class="card card-body">
+    <p class="mb-2 text-muted">
+      Esta acción eliminará la ficha clínica y todas sus atenciones asociadas.
+    </p>
+
+    <form method="post">
+      {% csrf_token %}
+      <div class="d-flex gap-2">
+        <button class="btn btn-danger">Sí, eliminar</button>
+        <a href="{% url 'detalle_mascota' mascota.pk %}" class="btn btn-secondary">Cancelar</a>
+      </div>
+    </form>
+  </div>
+{% endblock %}

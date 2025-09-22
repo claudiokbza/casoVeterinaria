@@ -1,15 +1,13 @@
 {% extends 'principal/base.html' %}
-
 {% block title %}{{ title }}{% endblock %}
-
 {% block content %}
-    <h1 class="mb-4">{{ title }}</h1>
-    <div class="card p-4">
-        <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="btn btn-primary mt-3">Guardar Atención</button>
-            <a href="{% url 'detalle_mascota' form.instance.ficha_mascota.pk %}" class="btn btn-secondary mt-2">Cancelar</a>
-        </form>
-    </div>
+<h1 class="mb-4">{{ title }}</h1>
+<div class="card p-4">
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary mt-3">Guardar Atención</button>
+    <a href="{% url 'detalle_mascota' mascota.pk %}" class="btn btn-secondary mt-2">Cancelar</a>
+  </form>
+</div>
 {% endblock %}
