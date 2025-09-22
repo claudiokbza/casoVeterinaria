@@ -34,7 +34,7 @@ class Veterinario(models.Model):
         return self.idveterinario.nombre
 
 class Dueno(models.Model):
-    iddueño = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True, db_column='iddueño')
     run = models.CharField(max_length=45, unique=True)
     nombres = models.CharField(max_length=45)
     apellidos = models.CharField(max_length=45)
