@@ -10,20 +10,6 @@ from .models import FichaMascota, Atencion, Asistente, Veterinario, Dueno
 
 #FICHAS MASCOTAS
 
-# En principal/views.py
-
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib import messages
-from .models import Dueno, FichaMascota, Asistente
-from .forms import DuenoForm, FichaMascotaForm
-from django.core.exceptions import ObjectDoesNotExist
-
-# En principal/views.py
-from django.shortcuts import render, redirect
-from django.contrib import messages
-from .models import Dueno, FichaMascota, Asistente
-from .forms import DuenoForm, FichaMascotaForm
-from django.core.exceptions import ObjectDoesNotExist
 
 def crear_dueno(request):
     if request.method == 'POST':
