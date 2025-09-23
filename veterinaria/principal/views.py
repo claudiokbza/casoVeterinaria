@@ -144,7 +144,6 @@ def crear_atencion(request, mascota_pk):
     )
 
 
-
 def modificar_atencion(request, pk):
     atencion = get_object_or_404(Atencion, pk=pk)
     if request.method == 'POST':
@@ -154,7 +153,12 @@ def modificar_atencion(request, pk):
             return redirect('detalle_mascota', pk=atencion.ficha_mascota.pk)
     else:
         form = AtencionForm(instance=atencion)
-    return render(request, 'principal/form_atencion.html', {'form': form, 'title': 'Modificar Atención'}) 
+    context = {
+        'form': form,
+        'title': 'Modificar Atención',
+        'mascota': atencion.ficha_mascota
+    }
+    return render(request, 'principal/form_atencion.html', context)
 
 def eliminar_atencion(request, pk):
     atencion = get_object_or_404(Atencion, pk=pk)

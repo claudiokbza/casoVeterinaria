@@ -14,7 +14,7 @@ class AsistenteAdmin(admin.ModelAdmin):
 class VeterinarioAdmin(admin.ModelAdmin):
     list_display = ('idveterinario', 'tipo_acceso')
 
-@admin.register(FichaMascota)
+'''@admin.register(FichaMascota)
 class FichaMascotaAdmin(admin.ModelAdmin):
     list_display = ('nombre', 'sexo', 'dueño', 'asistente')
     search_fields = ('nombre', 'dueño__nombres')
@@ -22,4 +22,4 @@ class FichaMascotaAdmin(admin.ModelAdmin):
 @admin.register(Dueno)
 class DuenoAdmin(admin.ModelAdmin):
     list_display = ('nombres', 'apellidos', 'run', 'email')
-    search_fields = ('nombres', 'apellidos', 'run', 'email')
+    search_fields = ('nombres', 'apellidos', 'run', 'email')'''
