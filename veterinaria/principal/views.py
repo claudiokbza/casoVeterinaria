@@ -163,3 +163,6 @@ def eliminar_atencion(request, pk):
         atencion.delete()
         return redirect('detalle_mascota', pk=mascota_pk)
     return render(request, 'principal/confirmar_eliminar_atencion.html', {'atencion': atencion})
+
+def home(request):
+    return render(request, 'principal/home.html')
