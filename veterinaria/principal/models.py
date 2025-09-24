@@ -50,13 +50,21 @@ SEXO_CHOICES = [
     ('H', 'Hembra'),
 ]    
 
+TIPO_ANIMAL_CHOICES = [
+    ('perro', 'Perro'),
+    ('gato', 'Gato'),
+    ('ave', 'Ave'),
+    ('roedor', 'Roedor'),
+    ('otro', 'Otro'),
+]
+
 class FichaMascota(models.Model):
     idficha_mascota = models.AutoField(primary_key=True, db_column='idficha_mascota')
     nombre = models.CharField(max_length=45)
     num_chip = models.CharField(max_length=45, blank=True, null=True)
     sexo = models.CharField(max_length=1, choices=SEXO_CHOICES)
     fecha_nacimiento = models.DateField()
-    raza = models.CharField(max_length=45)
+    tipo_animal = models.CharField(max_length=45)
     dueño = models.ForeignKey(Dueno, on_delete=models.CASCADE)
     asistente = models.ForeignKey(Asistente, on_delete=models.SET_NULL, null=True)
 
@@ -66,9 +74,9 @@ class FichaMascota(models.Model):
 class Atencion(models.Model):
     idatencion = models.AutoField(primary_key=True, db_column='idatencion')
     fecha_atencion = models.DateField()
-    diagnostico = models.CharField(max_length=45)
-    tratamiento = models.CharField(max_length=45)
-    observaciones = models.CharField(max_length=45, blank=True, null=True)
+    diagnostico = models.TextField()
+    tratamiento = models.TextField()
+    observaciones = models.TextField(blank=True, null=True)
     ficha_mascota = models.ForeignKey(FichaMascota, on_delete=models.CASCADE)
     veterinario = models.ForeignKey(Veterinario, on_delete=models.SET_NULL, null=True)
 

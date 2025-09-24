@@ -9,10 +9,10 @@
         <div class="col-md-4 mb-4">
             <div class="card h-100 shadow-sm">
                 <div class="card-body">
-                    <h5 class="card-title">{{ mascota.nombre }}</h5>
+                    <h3 class="card-title">{{ mascota.nombre }}</h3>
                     <p class="card-text">
                         <strong>Dueño:</strong> {{ mascota.dueño.nombres }} {{ mascota.dueño.apellidos }}<br>
-                        <strong>Raza:</strong> {{ mascota.raza }}<br>
+                        <strong>Tipo de Animal:</strong> {{ mascota.tipo_animal }}<br>
                         <strong>Sexo:</strong> {{ mascota.get_sexo_display }}
                     </p>
                     <a href="{% url 'detalle_mascota' mascota.pk %}" class="btn btn-primary btn-sm">
