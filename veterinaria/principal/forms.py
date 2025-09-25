@@ -23,16 +23,13 @@ class FichaMascotaForm(forms.ModelForm):
                 field.widget.attrs['class'] = 'form-control'
         
 
+# forms.py
 class AtencionForm(forms.ModelForm):
-
     class Meta:
         model = Atencion
-        fields = ['fecha_atencion', 'diagnostico', 'tratamiento', 'observaciones']
+        fields = ['fecha_atencion', 'veterinario', 'diagnostico', 'tratamiento', 'observaciones']
         widgets = {
-            'fecha_atencion': forms.DateInput(
-                format='%Y-%m-%d',
-                attrs={'type': 'date'}
-            ),
+            'fecha_atencion': forms.DateInput(format='%Y-%m-%d', attrs={'type': 'date'}),
             'diagnostico': forms.Textarea(attrs={'rows': 4}),
             'tratamiento': forms.Textarea(attrs={'rows': 4}),
             'observaciones': forms.Textarea(attrs={'rows': 3}),
@@ -40,8 +37,11 @@ class AtencionForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        for field in self.fields.values():
-            field.widget.attrs['class'] = 'form-control'
+        for field_name, field in self.fields.items():
+            if isinstance(field.widget, forms.Select):
+                field.widget.attrs['class'] = 'form-select'
+            else:
+                field.widget.attrs['class'] = 'form-control'
 
 class DuenoForm(forms.ModelForm):
     class Meta:

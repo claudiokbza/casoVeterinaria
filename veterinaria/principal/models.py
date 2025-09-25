@@ -24,14 +24,14 @@ class Asistente(models.Model):
     tipo_acceso = models.CharField(max_length=45, choices=ROLES, default='asistente')
 
     def __str__(self):
-        return self.idasistente.nombre
+        return str(self.idasistente)
 
 class Veterinario(models.Model):
     idveterinario = models.OneToOneField(Profesional, on_delete=models.CASCADE, primary_key=True)
     tipo_acceso = models.CharField(max_length=45, choices=ROLES, default='asistente')
 
     def __str__(self):
-        return self.idveterinario.nombre
+        return str(self.idveterinario)
 
 class Dueno(models.Model):
     id = models.AutoField(primary_key=True, db_column='iddueño')

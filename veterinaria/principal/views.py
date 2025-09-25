@@ -127,20 +127,16 @@ def crear_atencion(request, mascota_pk):
         form = AtencionForm(request.POST)
         if form.is_valid():
             nueva_atencion = form.save(commit=False)
-            nueva_atencion.ficha_mascota = mascota              # <- asigna la ficha
-            nueva_atencion.fecha_atencion = date.today()        # <- si tu modelo NO tiene default
-            veterinario = Veterinario.objects.first()           # <- provisional
-            if veterinario:
-                nueva_atencion.veterinario = veterinario
+            nueva_atencion.ficha_mascota = mascota              
+            nueva_atencion.fecha_atencion = date.today()        
             nueva_atencion.save()
             return redirect('detalle_mascota', pk=mascota.pk)
     else:
-        form = AtencionForm()                                   # <- sin initial inválido
-
+        form = AtencionForm()                                   
     return render(
         request,
         'principal/form_atencion.html',
-        {'form': form, 'title': 'Crear Atención', 'mascota': mascota}  # <- pasa mascota
+        {'form': form, 'title': 'Crear Atención', 'mascota': mascota}  
     )
 
 

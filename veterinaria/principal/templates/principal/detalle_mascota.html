@@ -34,7 +34,7 @@
                 <p class="mb-1"><strong>Veterinario:</strong> {{ atencion.veterinario.idveterinario }} {{ atencion.veterinario.apellido }}</p>
                 <p class="mb-1"><strong>Diagnóstico:</strong> {{ atencion.diagnostico }}</p>
                 <p class="mb-1"><strong>Tratamiento:</strong> {{ atencion.tratamiento }}</p>
-                <small><strong>Observaciones:</strong> {{ atencion.observaciones|default:"Sin observaciones" }}</small>
+                <p class="mb-1"><strong>Observaciones:</strong> {{ atencion.observaciones|default:"Sin observaciones" }}</p>
                 <div class="mt-2">
                     <a href="{% url 'modificar_atencion' atencion.pk %}" class="btn btn-sm btn-warning">Modificar</a>
                     <a href="{% url 'eliminar_atencion' atencion.pk %}" class="btn btn-sm btn-danger">Eliminar</a>
